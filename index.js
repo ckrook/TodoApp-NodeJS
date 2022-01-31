@@ -32,38 +32,55 @@ app.get("/todos", (req, res) => {
   res.render("todos-list", { todos });
 });
 
-// Visa en specifik todo
-app.get("/todos/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const todo = todos.find((i) => i.id === id);
-
-  res.render("todo-single", todo);
-});
-
 app.post("/todos/add", (req, res) => {
+  console.log(req.body);
   const id = getNewId(todos);
   const newTodo = {
     id: id,
-    title: req.body.title,
-    value: parseInt(req.body.value),
+    created: new Date(),
+    description: req.body.description,
+    done: false,
   };
   todos.push(newTodo);
-  res.redirect("/todos");
 });
 
-app.get("/todos/:id/remove", (req, res) => {
+app.get("/todo/:id/done", (req, res) => {
+  const id = parseInt(req.params.id) - 1;
+  if (todos[id].done) {
+    todos[id].done = false;
+  } else {
+    todos[id].done = true;
+  }
+  res.redirect("/");
+});
+
+app.get("/todos/:id/delete", (req, res) => {
   const id = parseInt(req.params.id);
   const todo = todos.find((i) => i.id === id);
 
-  res.render("/", todos);
+  res.render("delete", { todo });
 });
 
-app.post("/todos/:id/remove", (req, res) => {
-  const id = parseInt(req.params.id);
+app.post("/todos/:id/delete", (req, res) => {
+  const id = parseInt(req.params.id) - 1;
   const index = todos.findIndex((i) => i.id === id);
 
   todos.splice(index, 1);
-  res.redirect("/todos");
+  res.redirect("/");
+});
+
+app.get("/todos/:id/edit", (req, res) => {
+  const id = parseInt(req.params.id);
+  const todo = todos.find((i) => i.id === id);
+
+  res.render("edit", { todo });
+});
+
+app.post("/todos/:id/update", (req, res) => {
+  const id = parseInt(req.params.id);
+  const todo = todos.find((i) => i.id === id);
+  todo[id].description = req.body.description;
+  res.redirect("/", { todo });
 });
 
 ///////////////////////////////
