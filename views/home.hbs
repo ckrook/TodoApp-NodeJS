@@ -3,11 +3,13 @@
   <a class="bg-green-400 px-3 py-2 rounded w-full" href="/newTodo">Add new todo</a>
   <div class="flex justify-between my-4">
     <p>Sort by</p>
-    <select name="" id="">
-      <option value="">Undone tasks</option>
-      <option value="">Newest added</option>
-      <option value="">Oldest added</option>
-    </select>
+    <form action="/sort" method="get" onchange="sortby()">
+      <select name="sort" id="">
+        <option name="hello" value="1">Undone tasks</option>
+        <option name="hello" value="2">Newest added</option>
+        <option name="hello" value="3">Oldest added</option>
+      </select>
+    </form>
   </div>
   {{#each todos}}
     <li class="flex justify-between border rounded mb-2 p-2">

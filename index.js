@@ -13,16 +13,13 @@ app.engine(
     extname: ".hbs",
   })
 );
+app.set("view engine", "hbs");
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
 
 // Home page //
 app.get("/", (req, res) => {
-  console.log(todos);
   res.render("home", { todos });
-});
-
-// Todo lista //
-app.get("/todos", (req, res) => {
-  res.render("todos-list", { todos });
 });
 
 // Add new todo //
@@ -30,7 +27,7 @@ app.get("/newTodo", (req, res) => {
   res.render("add");
 });
 
-app.post("/todos/add", (req, res) => {
+app.post("/add", (req, res) => {
   const id = getNewId(todos);
   const newTodo = {
     id: id,
@@ -83,11 +80,11 @@ app.post("/todos/:id/update", (req, res) => {
   res.redirect("/");
 });
 
-///////////////////////////////
+// Sort by //
 
-app.set("view engine", "hbs");
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
+function sortby() {
+  console.log("hello");
+}
 
 app.listen(8000, () => {
   console.log("http://localhost:8000");
