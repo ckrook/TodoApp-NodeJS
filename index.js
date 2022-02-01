@@ -1,18 +1,10 @@
 const express = require("express");
 const exphbs = require("express-handlebars");
 const todos = require("./data/todos.js");
-
-function getNewId(list) {
-  let maxId = 0;
-  for (const Item of list) {
-    if (Item.id > maxId) {
-      maxId = Item.id;
-    }
-  }
-  return maxId + 1;
-}
-
+const getNewId = require("./lib/newId");
 const app = express();
+
+app.use(express.json());
 
 app.engine(
   "hbs",
@@ -22,38 +14,46 @@ app.engine(
   })
 );
 
-// Hem
+// Home page //
 app.get("/", (req, res) => {
+  console.log(todos);
   res.render("home", { todos });
 });
 
-// Todo lista
+// Todo lista //
 app.get("/todos", (req, res) => {
   res.render("todos-list", { todos });
 });
 
+// Add new todo //
+app.get("/newTodo", (req, res) => {
+  res.render("add");
+});
+
 app.post("/todos/add", (req, res) => {
-  console.log(req.body);
   const id = getNewId(todos);
   const newTodo = {
     id: id,
-    created: new Date(),
+    created: "formatted",
     description: req.body.description,
     done: false,
   };
   todos.push(newTodo);
-});
-
-app.get("/todo/:id/done", (req, res) => {
-  const id = parseInt(req.params.id) - 1;
-  if (todos[id].done) {
-    todos[id].done = false;
-  } else {
-    todos[id].done = true;
-  }
   res.redirect("/");
 });
 
+// Mark todo as done //
+app.get("/todo/:id/done", (req, res) => {
+  const id = parseInt(req.params.id) - 1;
+
+  // Toggle todo between True & False //
+  if (todos[id].done) todos[id].done = false;
+  else todos[id].done = true;
+
+  res.redirect("/");
+});
+
+// Delete todo //
 app.get("/todos/:id/delete", (req, res) => {
   const id = parseInt(req.params.id);
   const todo = todos.find((i) => i.id === id);
@@ -69,6 +69,7 @@ app.post("/todos/:id/delete", (req, res) => {
   res.redirect("/");
 });
 
+// Edit & update todo //
 app.get("/todos/:id/edit", (req, res) => {
   const id = parseInt(req.params.id);
   const todo = todos.find((i) => i.id === id);
@@ -77,10 +78,9 @@ app.get("/todos/:id/edit", (req, res) => {
 });
 
 app.post("/todos/:id/update", (req, res) => {
-  const id = parseInt(req.params.id);
-  const todo = todos.find((i) => i.id === id);
-  todo[id].description = req.body.description;
-  res.redirect("/", { todo });
+  const id = parseInt(req.params.id) - 1;
+  todos[id].description = req.body.description;
+  res.redirect("/");
 });
 
 ///////////////////////////////

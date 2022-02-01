@@ -1,6 +1,11 @@
 <h2>Edit todo</h2>
 
 <form action="/todos/{{todo.id}}/update" method="post">
-  <input class="border p-2" type="text" value="{{todo.description}}" />
+  <input
+    class="border p-2"
+    name="description"
+    type="text"
+    value="{{todo.description}}"
+  />
   <input class="border p-2" type="submit" value="Edit" />
 </form>
