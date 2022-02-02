@@ -1,0 +1,11 @@
+@font-face {
+  font-family: "Inter";
+  src: url("Inter.woff");
+}
+
+html {
+  /* font-family: "Inter", "Bitstream Vera Serif", serif !important; */
+}
+.on {
+  text-decoration: line-through;
+}

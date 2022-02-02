@@ -23,17 +23,35 @@ app.use(express.urlencoded({ extended: false }));
 
 // GET: / home
 app.get("/", (req, res) => {
-  res.render("home", { todos });
+  const todosCopy = todos;
+  todos.sort((a, b) => {
+    return b.created - a.created;
+  });
+
+  const desc = true;
+  const showSort = true;
+
+  res.render("home", { todosCopy, desc, showSort });
 });
 
-// GET: / Completed todos
-app.get("/todos-completed", (req, res) => {
+// GET: / todos / incompleted
+app.get("/todos/incompleted", (req, res) => {
+  res.render("todos-incompleted", { todos });
+});
+
+// GET: / todos / completed
+app.get("/todos/completed", (req, res) => {
   res.render("todos-completed", { todos });
 });
 
-// GET: / home
-app.get("/todos-incompleted", (req, res) => {
-  res.render("todos-incompleted", { todos });
+// GET: / todos / ascending
+app.get("/todos/asc", (req, res) => {
+  const todosCopy = todos;
+  todosCopy.sort((a, b) => {
+    return a.created - b.created;
+  });
+
+  res.render("home", { todosCopy });
 });
 
 // GET: / New Todo
@@ -46,7 +64,7 @@ app.post("/add", (req, res) => {
   const id = getNewId(todos);
   const newTodo = {
     id: id,
-    created: "formatted",
+    created: new Date(),
     description: req.body.description,
     done: false,
   };
@@ -99,22 +117,25 @@ app.post("/todo/:id/update", (req, res) => {
 });
 
 // GET: / Sort ascending
-app.get("/todos/asc", (req, res) => {
-  const sortedTodos = todos;
-  sortedTodos.sort((a, b) => {
+app.get("/sort/asc", (req, res) => {
+  const todosCopy = todos;
+  todosCopy.sort((a, b) => {
     return a.created - b.created;
   });
-  res.render("home", { sortedTodos });
+
+  const showSort = true;
+
+  res.render("home", { todosCopy, showSort });
 });
 
 // GET: / Sort descending
 app.get("/todos/desc", (req, res) => {
-  const sortedTodos = todos;
-  sortedTodos.sort((a, b) => {
+  let todosCopy = todos;
+  todosCopy.sort((a, b) => {
     return b.created - a.created;
   });
-
-  res.render("home", { sortedTodos });
+  console.log(todos);
+  res.render("home", { todos, todosCopy });
 });
 
 app.listen(8000, () => {

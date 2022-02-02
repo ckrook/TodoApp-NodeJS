@@ -1,20 +1,20 @@
 const todos = [
   {
     id: 1,
-    created: "2022-01-31",
-    description: "Walk the dog",
+    created: new Date(),
+    description: "Click me to edit or delete",
     done: false,
   },
   {
     id: 2,
-    created: "2022-01-31",
-    description: "Make bread",
+    created: new Date(),
+    description: "Sort list by newest / oldest created",
     done: false,
   },
   {
     id: 3,
-    created: "2022-01-31",
-    description: "Buy Tesla stock",
+    created: new Date(),
+    description: "Press green button to add todo",
     done: false,
   },
 ];

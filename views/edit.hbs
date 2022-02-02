@@ -9,14 +9,29 @@
       <input type="checkbox" name="done" />
     {{/if}}
   </div>
-  <input
-    class="border p-2 text-black"
-    name="description"
-    type="text"
-    value="{{todo.description}}"
-  />
-  <input class="border p-2" type="submit" value="Save" />
+  <div class="flex">
+    <input
+      class="border p-2 text-black grow rounded-l-lg"
+      name="description"
+      type="text"
+      value="{{todo.description}}"
+    />
+    <input
+      class="bg-emerald-500 rounded-r-lg p-2 grow"
+      type="submit"
+      value="Save"
+    />
+  </div>
 </form>
-<form action="/todo/{{todo.id}}/delete" method="post">
-  <input class="border p-2" type="submit" value="Delete" />
+<form
+  class="flex justify-center items-center"
+  action="/todo/{{todo.id}}/delete"
+  method="get"
+>
+  <p class="mr-4">or..</p>
+  <input
+    class="bg-rose-500 rounded-lg py-2 px-4"
+    type="submit"
+    value="Delete"
+  />
 </form>
