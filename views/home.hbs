@@ -20,7 +20,7 @@
     </div>
     <div class="flex space-x-1 justify-around text-gray-700">
       <p>Sort by:</p>
-      <a class="underline text-gray-900" href="/sort/asc">Oldest</a>
+      <a class="underline text-gray-900" href="/todos/asc">Oldest</a>
       <p>or</p>
       <a class="underline text-gray-900" href="/todos/desc">Newest</a>
     </div>
@@ -28,9 +28,9 @@
 </div>
 <ul>
 
-  {{#if todosCopy}}
+  {{#if todos}}
     <ul class="todos">
-      {{#each todosCopy}}
+      {{#each todos}}
         <a
           class="{{done}} flex justify-between bg-rose-100 rounded mb-2 p-2"
           href="/todo/{{id}}/edit"

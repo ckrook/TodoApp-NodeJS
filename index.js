@@ -23,15 +23,11 @@ app.use(express.urlencoded({ extended: false }));
 
 // GET: / home
 app.get("/", (req, res) => {
-  const todosCopy = todos;
   todos.sort((a, b) => {
     return b.created - a.created;
   });
 
-  const desc = true;
-  const showSort = true;
-
-  res.render("home", { todosCopy, desc, showSort });
+  res.render("home", { todos });
 });
 
 // GET: / todos / incompleted
@@ -46,12 +42,11 @@ app.get("/todos/completed", (req, res) => {
 
 // GET: / todos / ascending
 app.get("/todos/asc", (req, res) => {
-  const todosCopy = todos;
-  todosCopy.sort((a, b) => {
+  todos.sort((a, b) => {
     return a.created - b.created;
   });
 
-  res.render("home", { todosCopy });
+  res.render("home", { todos });
 });
 
 // GET: / New Todo
@@ -69,17 +64,6 @@ app.post("/add", (req, res) => {
     done: false,
   };
   todos.push(newTodo);
-  res.redirect("/");
-});
-
-//GET: / Toggle Done
-app.get("/todo/:id/done", (req, res) => {
-  const id = parseInt(req.params.id) - 1;
-
-  // Toggle todo between True & False //
-  if (todos[id].done) todos[id].done = false;
-  else todos[id].done = true;
-
   res.redirect("/");
 });
 
@@ -110,32 +94,31 @@ app.get("/todo/:id/edit", (req, res) => {
 
 // POST / Update
 app.post("/todo/:id/update", (req, res) => {
-  const id = parseInt(req.params.id) - 1;
-  todos[id].description = req.body.description;
-  todos[id].done = req.body.done;
+  const id = parseInt(req.params.id);
+  const todo = todos.find((todo) => todo.id === id);
+  todo.description = req.body.description;
+  todo.done = Boolean(req.body.done);
   res.redirect("/");
 });
 
 // GET: / Sort ascending
-app.get("/sort/asc", (req, res) => {
-  const todosCopy = todos;
-  todosCopy.sort((a, b) => {
+app.get("/todos/asc", (req, res) => {
+  todos.sort((a, b) => {
     return a.created - b.created;
   });
 
   const showSort = true;
 
-  res.render("home", { todosCopy, showSort });
+  res.render("home", { todos, showSort });
 });
 
 // GET: / Sort descending
 app.get("/todos/desc", (req, res) => {
-  let todosCopy = todos;
-  todosCopy.sort((a, b) => {
+  todos.sort((a, b) => {
     return b.created - a.created;
   });
-  console.log(todos);
-  res.render("home", { todos, todosCopy });
+
+  res.render("home", { todos });
 });
 
 app.listen(8000, () => {
