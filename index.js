@@ -1,11 +1,15 @@
+// IMPORTS //
 const express = require("express");
 const exphbs = require("express-handlebars");
 const todos = require("./data/todos.js");
 const getNewId = require("./lib/newId");
 const app = express();
 
-app.use(express.json());
+////////////
+// SETUP //
+//////////
 
+app.use(express.json());
 app.engine(
   "hbs",
   exphbs.engine({
@@ -17,16 +21,27 @@ app.set("view engine", "hbs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
-// Home page //
+// GET: / home
 app.get("/", (req, res) => {
   res.render("home", { todos });
 });
 
-// Add new todo //
+// GET: / Completed todos
+app.get("/todos-completed", (req, res) => {
+  res.render("todos-completed", { todos });
+});
+
+// GET: / home
+app.get("/todos-incompleted", (req, res) => {
+  res.render("todos-incompleted", { todos });
+});
+
+// GET: / New Todo
 app.get("/newTodo", (req, res) => {
   res.render("add");
 });
 
+// POST: / Add
 app.post("/add", (req, res) => {
   const id = getNewId(todos);
   const newTodo = {
@@ -39,7 +54,7 @@ app.post("/add", (req, res) => {
   res.redirect("/");
 });
 
-// Mark todo as done //
+//GET: / Toggle Done
 app.get("/todo/:id/done", (req, res) => {
   const id = parseInt(req.params.id) - 1;
 
@@ -50,15 +65,16 @@ app.get("/todo/:id/done", (req, res) => {
   res.redirect("/");
 });
 
-// Delete todo //
-app.get("/todos/:id/delete", (req, res) => {
+//GET: Delete todo //
+app.get("/todo/:id/delete", (req, res) => {
   const id = parseInt(req.params.id);
   const todo = todos.find((i) => i.id === id);
 
   res.render("delete", { todo });
 });
 
-app.post("/todos/:id/delete", (req, res) => {
+// POST: Delete
+app.post("/todo/:id/delete", (req, res) => {
   const id = parseInt(req.params.id) - 1;
   const index = todos.findIndex((i) => i.id === id);
 
@@ -66,25 +82,40 @@ app.post("/todos/:id/delete", (req, res) => {
   res.redirect("/");
 });
 
-// Edit & update todo //
-app.get("/todos/:id/edit", (req, res) => {
+//GET: Edit
+app.get("/todo/:id/edit", (req, res) => {
   const id = parseInt(req.params.id);
   const todo = todos.find((i) => i.id === id);
 
   res.render("edit", { todo });
 });
 
-app.post("/todos/:id/update", (req, res) => {
+// POST / Update
+app.post("/todo/:id/update", (req, res) => {
   const id = parseInt(req.params.id) - 1;
   todos[id].description = req.body.description;
+  todos[id].done = req.body.done;
   res.redirect("/");
 });
 
-// Sort by //
+// GET: / Sort ascending
+app.get("/todos/asc", (req, res) => {
+  const sortedTodos = todos;
+  sortedTodos.sort((a, b) => {
+    return a.created - b.created;
+  });
+  res.render("home", { sortedTodos });
+});
 
-function sortby() {
-  console.log("hello");
-}
+// GET: / Sort descending
+app.get("/todos/desc", (req, res) => {
+  const sortedTodos = todos;
+  sortedTodos.sort((a, b) => {
+    return b.created - a.created;
+  });
+
+  res.render("home", { sortedTodos });
+});
 
 app.listen(8000, () => {
   console.log("http://localhost:8000");

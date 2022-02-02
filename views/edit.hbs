@@ -1,11 +1,22 @@
-<h2>Edit todo</h2>
+<h2 class="text-center text-xl">Edit todo</h2>
 
-<form action="/todos/{{todo.id}}/update" method="post">
+<form action="/todo/{{todo.id}}/update" method="post">
+  <div>
+    Mark as done:
+    {{#if todo.done}}
+      <input type="checkbox" name="done" checked />
+    {{else}}
+      <input type="checkbox" name="done" />
+    {{/if}}
+  </div>
   <input
-    class="border p-2"
+    class="border p-2 text-black"
     name="description"
     type="text"
     value="{{todo.description}}"
   />
-  <input class="border p-2" type="submit" value="Edit" />
+  <input class="border p-2" type="submit" value="Save" />
+</form>
+<form action="/todo/{{todo.id}}/delete" method="post">
+  <input class="border p-2" type="submit" value="Delete" />
 </form>
