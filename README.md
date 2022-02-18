@@ -3,7 +3,7 @@ School assignment where the objectives is to create an todo app with NodeJS, exp
 
 ## Objectives
 The objectives here where to create a todo app with Express & Handlebars.<br>
-###All Todo task should have the following attributes:<br>
+### All Todo task should have the following attributes:<br>
 <ul>
   <li>Id</li>
   <li>Created (date & Time)</li>
