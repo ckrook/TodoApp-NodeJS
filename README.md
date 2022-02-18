@@ -14,7 +14,4 @@ The user should be able to execute all CRUD-operations on todo tasks.<br>
 The user can choose to show all tasks, only done or only undone.<br>
 The user can sort tasks by when created. Newest → Oldest & Oldest → Newest.
 
-
-<img src="https://gfycat.com/infantilesparsebanteng" width="100" height="100" />
-
-
+<div style='position:relative; padding-bottom:calc(64.20% + 44px)'><iframe src='https://gfycat.com/ifr/InfantileSparseBanteng' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe></div>
