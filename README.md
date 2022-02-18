@@ -15,4 +15,6 @@ The user can choose to show all tasks, only done or only undone.<br>
 The user can sort tasks by when created. Newest → Oldest & Oldest → Newest.
 
 
-![Alt Text](https://gfycat.com/infantilesparsebanteng)
+<img src="https://gfycat.com/infantilesparsebanteng" width="100" height="100" />
+
+
