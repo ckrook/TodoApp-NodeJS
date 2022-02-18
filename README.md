@@ -1,5 +1,5 @@
 # Summary
-School assignment where the objectives is to create an todo app with NodeJS, express & handlebars.<br>
+School assignment where the objectives is to create an todo app with NodeJS, express, handlebars & Mongodb<br>
 
 ## Objectives
 The objectives here where to create a todo app with Express & Handlebars.<br>
