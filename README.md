@@ -1,6 +1,3 @@
-![](todoapp.gif)
-
-
 # Summary
 School assignment where the objectives is to create an todo app with NodeJS, express & handlebars.<br>
 
@@ -17,3 +14,5 @@ The user should be able to execute all CRUD-operations on todo tasks.<br>
 The user can choose to show all tasks, only done or only undone.<br>
 The user can sort tasks by when created. Newest → Oldest & Oldest → Newest.
 
+
+![](todoapp.gif)
