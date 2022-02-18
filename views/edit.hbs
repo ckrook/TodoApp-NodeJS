@@ -1,6 +1,6 @@
 <h2 class="text-center text-xl">Edit todo</h2>
 
-<form action="/todo/{{todo.id}}/update" method="post">
+<form action="/{{todo._id}}/update" method="post">
   <div>
     Mark as done:
     {{#if todo.done}}
@@ -25,7 +25,7 @@
 </form>
 <form
   class="flex justify-center items-center"
-  action="/todo/{{todo.id}}/delete"
+  action="/{{todo._id}}/delete"
   method="get"
 >
   <p class="mr-4">or..</p>

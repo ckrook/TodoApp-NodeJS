@@ -4,10 +4,10 @@
     class="px-4 py-2 -mb-px font-semibold border-b-2 border-blue-400 rounded-t opacity-100"
   ><a id="default-tab" href="/">All</a></li>
   <li class="px-4 py-2 font-semibold rounded-t opacity-50"><a
-      href="/todos/incompleted"
+      href="/incompleted"
     >Incompleted</a></li>
   <li class="px-4 py-2 font-semibold rounded-t opacity-50"><a
-      href="/todos/completed"
+      href="/completed"
     >Completed</a></li>
 </ul>
 <div class="my-2 pr-2 rounded-lg text-sm">
@@ -20,9 +20,9 @@
     </div>
     <div class="flex space-x-1 justify-around text-gray-700">
       <p>Sort by:</p>
-      <a class="underline text-gray-900" href="/todos/asc">Oldest</a>
+      <a class="underline text-gray-900" href="/asc">Oldest</a>
       <p>or</p>
-      <a class="underline text-gray-900" href="/todos/desc">Newest</a>
+      <a class="underline text-gray-900" href="/desc">Newest</a>
     </div>
   </div>
 </div>
@@ -33,11 +33,13 @@
       {{#each todos}}
         <a
           class="{{done}} flex justify-between bg-rose-100 rounded mb-2 p-2"
-          href="/todo/{{id}}/edit"
+          href="/{{_id}}/edit"
         ><li>{{description}}</li></a>
       {{/each}}
     </ul>
   {{else}}
-    <p>Empty!</p>
+    <div class="bg-gray-100 py-2">
+      <p class="text-center">Lets create new todos!</p>
+    </div>
   {{/if}}
 </ul>

@@ -9,3 +9,11 @@ html {
 .true {
   text-decoration: line-through;
 }
+
+button {
+  cursor: pointer;
+}
+
+input[type="button"] {
+  cursor: pointer;
+}
