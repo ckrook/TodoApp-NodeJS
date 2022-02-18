@@ -28,5 +28,5 @@ The objectives here where to create a todo app with Express & Handlebars.<br>
     <li>Routes</li>
 </ul>
 
-<br>
+
 ![](todoapp.gif)
